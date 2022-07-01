@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crontab
+spec:
+  selector:
+    matchLabels:
+      app: crontab
+  template:
+    metadata:
+      labels:
+        app: crontab
+    spec:
+      containers:
+      - name: crontab
+        image: localhost:5000/crontab
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
