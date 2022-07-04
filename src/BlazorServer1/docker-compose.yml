@@ -1,0 +1,15 @@
+
+version: '3.4'
+
+services:
+  blazorserver1:
+    image: localhost:5000/blazorserver1
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      - DataProtectionPath=/var/blazorserver1/dataprotection
+    ports:
+      - 5150:80
+    volumes:
+      - c:/var/blazorserver1/dataprotection:/var/blazorserver1/dataprotection
