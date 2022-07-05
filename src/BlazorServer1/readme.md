@@ -29,3 +29,25 @@ kubectl wait --namespace ingress-nginx \
   --selector=app.kubernetes.io/component=controller \
   --timeout=120s
 ```
+
+## Local test
+Create a sample web server and associated service
+```ps
+kubectl create deployment demo --image=httpd --port=80
+kubectl expose deployment demo
+```
+
+Create an ingress resource
+```ps
+kubectl create ingress demo-localhost --class=nginx --rule="demo.localdev.me/*=demo:80"
+```
+
+Forward a local port to the ingress controller
+```ps
+kubectl port-forward --namespace=ingress-nginx service/ingress-nginx-controller 8080:80
+```
+
+Test the endpoint
+```ps
+start-process -FilePath http://demo.localdev.me:8080/
+```
